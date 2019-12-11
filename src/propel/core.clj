@@ -24,24 +24,9 @@
    'boolean_or
    'boolean_not
    'boolean_=
-   'string_=
-   'string_take
-   'string_drop
-   'string_reverse
-   'string_concat
-   'string_length
-   'string_includes?
    'close
-   0
-   1
-   true
-   false
-   ""
-   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-   "A"
-   "C"
-   "G"
-   "T"))
+   true false
+   0 1 2 3 4 5 6 7 8 9))
 
 (def opens ; number of blocks opened by instructions (default = 0)
   {'exec_dup 1
