@@ -67,3 +67,15 @@ The initial values defining how propel will evolve are as follows (mostly defaul
 :parent-selection :tournament
 :tournament-size 5
 ```
+
+## Results
+
+### Initial Run
+_See runs/run1.txt for log output_
+
+Propel ran for a full 500 generations without finding a solution. With 20 test cases per individual, some generations produced an error as little as ~24.
+
+I haven't seen any error vectors that have a mix of both odd and even errors; they seem to be all one or the other.
+
+**Changes for Next Run:**
+* Include `prime?` as an operator
