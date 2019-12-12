@@ -469,6 +469,27 @@
            :errors errors
            :total-error (apply +' errors))))
 
+;;;;;;;;;;
+;; Next-Largest Prime
+;; (shoutout to https://stackoverflow.com/questions/960980/fast-prime-number-generation-in-clojure for the prime number helpers)
+
+(def certainty 100)
+
+(defn prime?
+  "Given a number n, returns true if number is likely to be prime, otherwise false."
+  [n]
+  (.isProbablePrime (BigInteger/valueOf n) certainty))
+
+(defn next-largest-prime
+  "Given a prime p, returns next largest prime."
+  [p]
+  (loop [n p]
+    (if (prime? n)
+      n
+      (recur (inc n)))))
+
+;; (defn nlp-error-function)
+
 (defn -main
   "Runs propel-gp, giving it a map of arguments."
   [& args]
