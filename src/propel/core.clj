@@ -50,13 +50,6 @@
     (- x)
     x))
 
-(def certainty 100)
-
-(defn prime?
-  "Given a number n, returns true if number is likely to be prime, otherwise false."
-  [n]
-  (.isProbablePrime (BigInteger/valueOf n) certainty))
-
 (defn not-lazy
   "Returns lst if it is not a list, or a non-lazy version of lst if it is."
   [lst]
@@ -150,10 +143,6 @@
 (defn integer_=
   [state]
   (make-push-instruction state = [:integer :integer] :boolean))
-
-(defn integer_prime?
-  [state]
-  (make-push-instruction state prime? [:integer] :boolean))
 
 (defn exec_dup
   [state]
@@ -409,81 +398,16 @@
                      (repeatedly population-size 
                                  #(new-individual evaluated-pop argmap)))))))
 
-;;;;;;;;;
-;; Problem: f(x) = 7x^2 - 20x + 13
-
-(defn target-function-hard
-  "Target function: f(x) = 7x^2 - 20x + 13"
-  [x]
-  (+ (* 7 x x)
-     (* -20 x)
-     13))
-
-(defn target-function
-  "Target function: f(x) = x^3 + x + 3"
-  [x]
-  (+ (* x x x)
-     x
-     3))
-
-(defn regression-error-function
-  "Finds the behaviors and errors of the individual."
-  [argmap individual]
-  (let [program (push-from-plushy (:plushy individual))
-        inputs (range -10 11)
-        correct-outputs (map target-function inputs)
-        outputs (map (fn [input]
-                       (peek-stack
-                        (interpret-program
-                         program
-                         (assoc empty-push-state :input {:in1 input})
-                         (:step-limit argmap))
-                        :integer))
-                     inputs)
-        errors (map (fn [correct-output output]
-                      (if (= output :no-stack-item)
-                        1000000
-                        (abs (- correct-output output))))
-                    correct-outputs
-                    outputs)]
-    (assoc individual
-           :behaviors outputs
-           :errors errors
-           :total-error (apply +' errors))))
-
-;;;;;;;;;
-;; String classification
-
-(defn string-classification-error-function
-  "Finds the behaviors and errors of the individual."
-  [argmap individual]
-  (let [program (push-from-plushy (:plushy individual))
-        inputs ["GCG" "GACAG" "AGAAG" "CCCA" "GATTACA" "TAGG" "GACT"]
-        correct-outputs [false false false false true true true]
-        outputs (map (fn [input]
-                       (peek-stack
-                        (interpret-program
-                         program
-                         (assoc empty-push-state :input {:in1 input})
-                         (:step-limit argmap))
-                        :boolean))
-                     inputs)
-        errors (map (fn [correct-output output]
-                      (if (= output :no-stack-item)
-                        1000000
-                        (if (= correct-output output)
-                          0
-                          1)))
-                    correct-outputs
-                    outputs)]
-    (assoc individual
-           :behaviors outputs
-           :errors errors
-           :total-error (apply +' errors))))
-
 ;;;;;;;;;;
 ;; Next-Largest Prime
 ;; (shoutout to https://stackoverflow.com/questions/960980/fast-prime-number-generation-in-clojure for the prime number helpers)
+
+(def certainty 100)
+
+(defn prime?
+  "Given a number n, returns true if number is likely to be prime, otherwise false."
+  [n]
+  (.isProbablePrime (BigInteger/valueOf n) certainty))
 
 (defn next-largest-prime
   "Given a prime p, returns next largest prime."
@@ -505,6 +429,10 @@
   "Returns the next smallest prime from a random integer less than max."
   [max]
   (next-smallest-prime (rand-int max)))
+
+(defn integer_prime?
+  [state]
+  (make-push-instruction state prime? [:integer] :boolean))
 
 (defn get-behaviors
   "Returns a vector of behavioral data for an individual with the input, correct-output, and output for each test case."
