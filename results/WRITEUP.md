@@ -79,3 +79,11 @@ I haven't seen any error vectors that have a mix of both odd and even errors; th
 
 **Changes for Next Run:**
 * Include `prime?` as an operator
+
+### 2nd Run
+_See runs/run2.txt for log output_
+
+Propel ran for 500 generations without finding a solution. `integer_prime?` was used heavily during the earlier generations, but with increasing scarcity toward the end.
+
+**Changes for Next Run:**
+* Include `integer_next_prime` as an operator
