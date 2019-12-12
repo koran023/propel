@@ -501,11 +501,19 @@
   [max]
   (next-smallest-prime (rand-int max)))
 
+(defn get-behaviors
+  "Returns a vector of behavioral data for an individual with the input, correct-output, and output for each test case."
+  [inputs correct-outputs outputs]
+  (map (fn [i c o] {:input i :correct-ouput c :output o})
+       inputs
+       correct-outputs
+       outputs))
+
 (defn nlp-error-function
   "Finds the behaviors and errors of the individual."
   [argmap individual]
   (let [program (push-from-plushy (:plushy individual))
-        random-primes (repeatedly 20 (random-prime 1000))
+        random-primes (repeatedly 20 #(random-prime 1000))
         inputs random-primes
         correct-outputs (map next-largest-prime inputs)
         outputs (map (fn [input]
@@ -523,7 +531,7 @@
                     correct-outputs
                     outputs)]
     (assoc individual
-           :behaviors outputs
+           :behaviors (get-behaviors inputs correct-outputs outputs)
            :errors errors
            :total-error (apply +' errors))))
 
