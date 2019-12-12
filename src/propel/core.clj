@@ -483,7 +483,7 @@
 (defn next-largest-prime
   "Given a prime p, returns next largest prime."
   [p]
-  (loop [n p]
+  (loop [n (inc p)]
     (if (prime? n)
       n
       (recur (inc n)))))
