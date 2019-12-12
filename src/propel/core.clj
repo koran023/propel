@@ -18,6 +18,7 @@
    'integer_*
    'integer_%
    'integer_=
+   'integer_prime?
    'exec_dup
    'exec_if
    'boolean_and
@@ -48,6 +49,13 @@
   (if (neg? x)
     (- x)
     x))
+
+(def certainty 100)
+
+(defn prime?
+  "Given a number n, returns true if number is likely to be prime, otherwise false."
+  [n]
+  (.isProbablePrime (BigInteger/valueOf n) certainty))
 
 (defn not-lazy
   "Returns lst if it is not a list, or a non-lazy version of lst if it is."
@@ -142,6 +150,10 @@
 (defn integer_=
   [state]
   (make-push-instruction state = [:integer :integer] :boolean))
+
+(defn integer_prime?
+  [state]
+  (make-push-instruction state prime? [:integer] :boolean))
 
 (defn exec_dup
   [state]
@@ -472,13 +484,6 @@
 ;;;;;;;;;;
 ;; Next-Largest Prime
 ;; (shoutout to https://stackoverflow.com/questions/960980/fast-prime-number-generation-in-clojure for the prime number helpers)
-
-(def certainty 100)
-
-(defn prime?
-  "Given a number n, returns true if number is likely to be prime, otherwise false."
-  [n]
-  (.isProbablePrime (BigInteger/valueOf n) certainty))
 
 (defn next-largest-prime
   "Given a prime p, returns next largest prime."
