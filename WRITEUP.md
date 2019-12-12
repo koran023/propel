@@ -52,3 +52,18 @@ Possible things to tweak here are penalizing numbers that are divisible by 2, 3,
 ### Test Case Generation
 
 Initially, a random test case will be provided for every individual. This is one dimension that may be useful to explore to see how the provided test cases impact how quickly a solution is found, as well as how versatile/complete the given solution is.
+
+### Evolution Environment
+
+The initial values defining how propel will evolve are as follows (mostly default from NicMcPhee's fork of Propel):
+
+```
+:instructions default-instructions
+:error-function nlp-error-function
+:max-generations 500
+:population-size 200
+:max-initial-plushy-size 50
+:step-limit 100
+:parent-selection :tournament
+:tournament-size 5
+```

@@ -532,7 +532,7 @@
   [& args]
   (binding [*ns* (the-ns 'propel.core)]
     (propel-gp (update-in (merge {:instructions default-instructions
-                                  :error-function regression-error-function
+                                  :error-function nlp-error-function
                                   :max-generations 500
                                   :population-size 200
                                   :max-initial-plushy-size 50
