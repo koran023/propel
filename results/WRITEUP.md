@@ -86,4 +86,11 @@ _See runs/run2.txt for log output_
 Propel ran for 500 generations without finding a solution. `integer_prime?` was used heavily during the earlier generations, but with increasing scarcity toward the end.
 
 **Changes for Next Run:**
-* Include `integer_next_prime` as an operator
+* Include `integer_next_prime` as an operator. I want to basically hand it the solution and see how long it takes to figure it out (or see if it does at all).
+
+### 3rd Run
+_See runs/run3.txt for log output_
+
+I terminated the program after 220 generations since it seemed to be just mucking around in the ~30 total error zone. It's interesting that nothing seems to be happening even with the `integer_next_prime` helper.
+
+My suspicion is that providing an explicit loop operator might help. Another possibility is to increase the step-limit and allow programs to execute more instructions.

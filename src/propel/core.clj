@@ -19,6 +19,7 @@
    'integer_%
    'integer_=
    'integer_prime?
+   'integer_next_prime
    'exec_dup
    'exec_if
    'boolean_and
@@ -433,6 +434,10 @@
 (defn integer_prime?
   [state]
   (make-push-instruction state prime? [:integer] :boolean))
+
+(defn integer_next_prime
+  [state]
+  (make-push-instruction state next-largest-prime [:integer] [:integer]))
 
 (defn get-behaviors
   "Returns a vector of behavioral data for an individual with the input, correct-output, and output for each test case."
