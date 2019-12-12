@@ -488,7 +488,44 @@
       n
       (recur (inc n)))))
 
-;; (defn nlp-error-function)
+(defn next-smallest-prime
+  "Given a prime p, returns next smallest prime."
+  [p]
+  (loop [n (dec p)]
+    (if (prime? n)
+      n
+      (recur (dec n)))))
+
+(defn random-prime
+  "Returns the next smallest prime from a random integer less than max."
+  [max]
+  (next-smallest-prime (rand-int max)))
+
+(defn nlp-error-function
+  "Finds the behaviors and errors of the individual."
+  [argmap individual]
+  (let [program (push-from-plushy (:plushy individual))
+        random-primes (repeatedly 20 (random-prime 1000))
+        inputs random-primes
+        correct-outputs (map next-largest-prime inputs)
+        outputs (map (fn [input]
+                       (peek-stack
+                        (interpret-program
+                         program
+                         (assoc empty-push-state :input {:in1 input})
+                         (:step-limit argmap))
+                        :integer))
+                     inputs)
+        errors (map (fn [correct-output output]
+                      (if (= output :no-stack-item)
+                        1000000
+                        (abs (- output correct-output))))
+                    correct-outputs
+                    outputs)]
+    (assoc individual
+           :behaviors outputs
+           :errors errors
+           :total-error (apply +' errors))))
 
 (defn -main
   "Runs propel-gp, giving it a map of arguments."
