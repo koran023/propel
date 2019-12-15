@@ -437,7 +437,7 @@
 
 (defn integer_next_prime
   [state]
-  (make-push-instruction state next-largest-prime [:integer] [:integer]))
+  (make-push-instruction state next-largest-prime [:integer] :integer))
 
 (defn get-behaviors
   "Returns a vector of behavioral data for an individual with the input, correct-output, and output for each test case."
