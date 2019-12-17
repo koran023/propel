@@ -159,6 +159,14 @@
                          [:boolean :exec :exec]
                          :exec))
 
+(defn exec_while
+  [state]
+  (make-push-instruction state
+                         #(if %1
+                            [%2 'exec_while %2])
+                         [:boolean :exec]
+                         :exec))
+
 (defn boolean_and
   [state]
   (make-push-instruction state #(and %1 %2) [:boolean :boolean] :boolean))
@@ -439,13 +447,6 @@
 (defn integer_next_prime
   [state]
   (make-push-instruction state next-largest-prime [:integer] [:integer]))
-
-(defn exec_while
-  [state]
-  (make-push-instruction state
-                         #(while %1 %2)
-                         [:boolean :exec]
-                         :exec))
 
 (defn get-behaviors
   "Returns a vector of behavioral data for an individual with the input, correct-output, and output for each test case."
