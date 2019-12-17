@@ -19,9 +19,9 @@
    'integer_%
    'integer_=
    'integer_prime?
-   'integer_next_prime
    'exec_dup
    'exec_if
+   'exec_while
    'boolean_and
    'boolean_or
    'boolean_not
@@ -32,7 +32,8 @@
 
 (def opens ; number of blocks opened by instructions (default = 0)
   {'exec_dup 1
-   'exec_if 2})
+   'exec_if 2
+   'exec_while 1})
 
 ;;;;;;;;;
 ;; Utilities
@@ -438,6 +439,13 @@
 (defn integer_next_prime
   [state]
   (make-push-instruction state next-largest-prime [:integer] [:integer]))
+
+(defn exec_while
+  [state]
+  (make-push-instruction state
+                         #(while %1 %2)
+                         [:boolean :exec]
+                         :exec))
 
 (defn get-behaviors
   "Returns a vector of behavioral data for an individual with the input, correct-output, and output for each test case."
