@@ -21,7 +21,7 @@
    'integer_prime?
    'exec_dup
    'exec_if
-  ;  'exec_while
+   'exec_while
    'boolean_and
    'boolean_or
    'boolean_not
@@ -444,7 +444,8 @@
   [state]
   (make-push-instruction state
                          #(if %1
-                            [%2 'exec_while %2])
+                            (seq [%2 'exec_while %2])
+                            %2)
                          [:boolean :exec]
                          :exec))
 
