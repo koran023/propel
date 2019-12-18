@@ -21,7 +21,7 @@
    'integer_prime?
    'exec_dup
    'exec_if
-   'exec_while
+  ;  'exec_while
    'boolean_and
    'boolean_or
    'boolean_not
