@@ -94,3 +94,10 @@ _See runs/run3.txt for log output_
 I terminated the program after 220 generations since it seemed to be just mucking around in the ~30 total error zone. It's interesting that nothing seems to be happening even with the `integer_next_prime` helper.
 
 My suspicion is that providing an explicit loop operator might help. Another possibility is to increase the step-limit and allow programs to execute more instructions.
+
+** NOTE: There was a bug in `integer_next_prime` causing the result to be put on the `[:integer]` stack, rather than the `:integer` stack. Once this error was fixed, Propel found a solution within a single generation. **
+
+**Changes for Next Run:**
+* Remove `integer_next_prime`
+* Provide `exec_while`
+* Increase `step-limit` to 300 for looping
