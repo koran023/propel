@@ -101,3 +101,10 @@ My suspicion is that providing an explicit loop operator might help. Another pos
 * Remove `integer_next_prime`
 * Provide `exec_while`
 * Increase `step-limit` to 300 for looping
+
+### 4th Run
+_See runs/run4.txt for log output_
+
+I terminated the program after 162 generations. It didn't seem to be improving, even with looping and a step-limit of 300.
+
+I'm also not entirely convinced that `exec_while` is doing what it is supposed to. The advice Nic gave on how to implement it didn't quite match up with the pattern that `exec_if` follows and didn't make sense given the code in `make-push-instruction`. I *think* it's working (the program at least runs with no errors or exceptions), but I'm not sure how it's handling its arguments. I specified 1 open for `exec_while` in `opens`, but in the actual function definition, I hand it 2 arguments from the exec stack (one for the loop body--which should be a *block*, not a single instruction, and one for whatever next instruction to execute if the loop condition is false). I don't understand Propel well enough to know whether this implementation is correct.
