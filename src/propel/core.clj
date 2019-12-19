@@ -445,8 +445,8 @@
   (make-push-instruction state
                          #(if %1
                             (seq [%2 'exec_while %2])
-                            %2)
-                         [:boolean :exec]
+                            %3)
+                         [:boolean :exec :exec]
                          :exec))
 
 (defn get-behaviors
